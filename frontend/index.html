@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChronoGuard — Bi-Temporal Incident Agent</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">CG</div>
+      <div>
+        <h1>ChronoGuard</h1>
+        <p>Bi-temporal incident remediation &amp; root-cause agent</p>
+      </div>
+    </div>
+    <div class="health" id="health">checking stack…</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Submit incident</h2>
+      <label>Title</label>
+      <input id="title" value="sales_daily Airflow failure" />
+      <label>Occurred at (UTC)</label>
+      <input id="occurred" value="2026-09-27T02:14:00Z" />
+      <label>Description</label>
+      <textarea id="description" rows="8">sales_daily Airflow pipeline failed at 02:14 UTC.
+Athena query timed out.
+sales_fact_detail was not refreshed.
+The pipeline normally completes within 8 minutes.</textarea>
+      <div class="row">
+        <button id="submit" class="primary">Run ChronoGuard</button>
+        <button id="demo">Load demo text</button>
+      </div>
+      <p class="hint">Jev is called through OpenRouter. No fabricated triage is used.</p>
+    </section>
+
+    <section class="panel span-2">
+      <div class="row between">
+        <h2>Incident</h2>
+        <span class="pill" id="status">idle</span>
+      </div>
+      <div class="kpis">
+        <div><span>Severity</span><strong id="severity">—</strong></div>
+        <div><span>Confidence</span><strong id="confidence">—</strong></div>
+        <div><span>Malicious</span><strong id="malicious">—</strong></div>
+        <div><span>LangGraph node</span><strong id="node">—</strong></div>
+        <div><span>Jev latency</span><strong id="jevMs">—</strong></div>
+        <div><span>Verification</span><strong id="verify">—</strong></div>
+      </div>
+      <h3>Jev typed triage</h3>
+      <pre id="triage" class="code">Awaiting incident…</pre>
+      <div class="row">
+        <button id="approve" class="primary" disabled>Approve remediation</button>
+        <button id="reject" disabled>Reject</button>
+        <button id="retry" disabled>Retry</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Root cause</h2>
+      <p class="disclaimer" id="disclaimer">Hypothesis is never treated as a confirmed cause.</p>
+      <p id="hypothesis">—</p>
+      <h3>Remediation plan</h3>
+      <div id="plan"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Evidence</h2>
+      <div id="evidence"></div>
+      <h3>Historical retrieval</h3>
+      <div id="history"></div>
+    </section>
+
+    <section class="panel span-2">
+      <h2>Bi-temporal queries</h2>
+      <div class="split">
+        <div>
+          <h3>Query A — what was true in production at 02:00 UTC?</h3>
+          <p class="hint">VALID TIME</p>
+          <pre id="queryA" class="code"></pre>
+        </div>
+        <div>
+          <h3>Query B — what did ChronoGuard know at 02:00 UTC?</h3>
+          <p class="hint">TRANSACTION TIME</p>
+          <pre id="queryB" class="code"></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Dependency graph</h2>
+      <pre id="graph" class="code"></pre>
+    </section>
+
+    <section class="panel">
+      <h2>Timeline / audit trail</h2>
+      <ol id="timeline" class="timeline"></ol>
+    </section>
+  </main>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
